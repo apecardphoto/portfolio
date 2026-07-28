@@ -16,6 +16,37 @@ content:
             label: About Page Photo
             type: image
 
+          - name: aboutHeading
+            label: "About — Heading"
+            type: string
+
+          - name: aboutText
+            label: "About — Body Text"
+            type: text
+            description: "Separate paragraphs with a blank line. No code needed — just write and format like a normal document."
+
+          - name: printsHeading
+            label: "Prints — Heading"
+            type: string
+
+          - name: printsIntro
+            label: "Prints — Body Text"
+            type: text
+            description: "Separate paragraphs with a blank line."
+
+          - name: printsNote
+            label: "Prints — Note Box Text"
+            type: text
+            description: "The short boxed note near the bottom of the Prints page."
+
+          - name: contactHeading
+            label: "Contact — Heading"
+            type: string
+
+          - name: contactIntro
+            label: "Contact — Body Text"
+            type: text
+
       - name: collections
         label: Collections
         type: object
@@ -44,9 +75,28 @@ content:
                 type: string
                 description: "Short unique code, e.g. p1, l4, a2. Never reuse an ID."
 
+              - name: image
+                label: Photograph
+                type: image
+
+              - name: aspectRatio
+                label: Shape
+                type: select
+                options:
+                  values:
+                    - { label: "Landscape — wide (16:9)", value: "16 / 9" }
+                    - { label: "Landscape (3:2)", value: "3 / 2" }
+                    - { label: "Landscape (5:4)", value: "5 / 4" }
+                    - { label: "Square (1:1)", value: "1 / 1" }
+                    - { label: "Portrait (4:5)", value: "4 / 5" }
+                    - { label: "Portrait (2:3)", value: "2 / 3" }
+                description: "Pick whichever is closest to the actual photo. This reserves the right amount of space so the page doesn't jump while it loads, and the photo is never cropped — wider shapes show full-width, taller/squarer shapes pair up two at a time."
+
               - name: title
                 label: Title
                 type: string
+                required: false
+                description: "Leave blank to show the photograph with no title."
 
               - name: location
                 label: Location
@@ -56,24 +106,11 @@ content:
                 label: Year
                 type: number
 
-              - name: size
-                label: Layout Size
-                type: select
-                options:
-                  values:
-                    - full
-                    - large
-                    - medium
-                    - small
-                description: "Controls how large this photo appears in the collection layout."
-
-              - name: image
-                label: Photograph
-                type: image
-
               - name: description
                 label: Artistic Description
                 type: text
+                required: false
+                description: "Leave blank to show the photograph with no description."
 
               - name: camera
                 label: Camera
@@ -85,7 +122,24 @@ content:
                 type: string
                 required: false
 
+              - name: printAvailable
+                label: Available as Print
+                type: boolean
+                description: "Turn off to hide the 'View Print Options' button on this photo entirely."
+
               - name: printLink
                 label: Print Link
                 type: string
-                description: "External link to the print store for this photograph."
+                required: false
+                description: "External link to the print store for this photograph. Only shown if 'Available as Print' is on."
+
+              - name: featured
+                label: Show on Homepage
+                type: boolean
+                description: "Turn on to include this photo on the homepage."
+
+              - name: homepageOrder
+                label: Homepage Order
+                type: number
+                required: false
+                description: "Only matters if 'Show on Homepage' is on. Lower numbers appear first (1, 2, 3...). Leave blank if you don't care about the exact order."
