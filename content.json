@@ -100,7 +100,7 @@
         {
           "id": "l1",
           "image": "images/APL00810.jpg",
-          "aspectRatio": "16 / 9",
+          "aspectRatio": "3 / 2",
           "title": "Saint-Jean",
           "location": "Saint-Barthélemy, France",
           "year": 2025,
@@ -115,7 +115,7 @@
         {
           "id": "l2",
           "image": "images/APL00795(1).jpg",
-          "aspectRatio": "3 / 2",
+          "aspectRatio": "2 / 3",
           "title": "North Face",
           "location": "Dolomites, Italy",
           "year": 2025,
