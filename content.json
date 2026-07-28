@@ -25,7 +25,7 @@
           "description": "...",
           "camera": "Sony A7R III",
           "lens": "Tamron 28-75mm RXD f/2.8",
-          "printAvailable": true,
+          "printAvailable": false,
           "printLink": "https://apecardphoto.darkroom.com/products/1898863",
           "featured": true,
           "homepageOrder": 2
@@ -40,7 +40,7 @@
           "description": "...",
           "camera": "Sony A7R III",
           "lens": "Tamron 28-75mm RXD f/2.8",
-          "printAvailable": true,
+          "printAvailable": false,
           "printLink": "https://apecardphoto.darkroom.com/products/1898868",
           "featured": true,
           "homepageOrder": 3
@@ -55,7 +55,7 @@
           "description": "...",
           "camera": "Sony A7R III",
           "lens": "Tamron 28-75mm RXD f/2.8",
-          "printAvailable": true,
+          "printAvailable": false,
           "printLink": "https://apecardphoto.darkroom.com/",
           "featured": true,
           "homepageOrder": 5
@@ -70,9 +70,9 @@
           "description": "...",
           "camera": "Sony A7R III",
           "lens": "Tamron 28-75mm RXD f/2.8",
-          "printAvailable": true,
+          "printAvailable": false,
           "printLink": "https://apecardphoto.darkroom.com/products/1898866",
-          "featured": false,
+          "featured": true,
           "homepageOrder": 999
         },
         {
@@ -85,7 +85,7 @@
           "description": "A portrait of a modern-day pirate of the Caribbean.",
           "camera": "Sony A7R III",
           "lens": "Tamron 28-75mm RXD f/2.8",
-          "printAvailable": true,
+          "printAvailable": false,
           "printLink": "https://apecardphoto.darkroom.com/",
           "featured": true,
           "homepageOrder": 8
@@ -124,8 +124,7 @@
           "lens": "24mm",
           "printAvailable": true,
           "printLink": "https://apecardphoto.darkroom.com/",
-          "featured": false,
-          "homepageOrder": 999
+          "featured": true
         },
         {
           "id": "l3",
