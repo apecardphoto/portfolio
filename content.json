@@ -1,6 +1,13 @@
 {
   "site": {
-    "aboutPortrait": "images/APL02083-5 (1).jpg"
+    "aboutPortrait": "images/APL02083-5 (1).jpg",
+    "aboutHeading": "On light, and waiting for it.",
+    "aboutText": "I've come to think of a camera as a slow instrument, even when the shutter is fast. Most of what happens before a photograph is made is attention — to a room, a coastline, a face — long enough that whatever is true about it has a chance to appear on its own terms.\n\nI work across three subjects that don't, on the surface, have much in common: people, landscapes, and cars. What connects them is a working method rather than a style — I try to arrive early, stay longer than seems necessary, and photograph only once the obvious version of the scene has passed.\n\nI'm not especially interested in decisive moments. I'm interested in the ordinary minutes on either side of them, which is usually where the actual subject is standing.",
+    "printsHeading": "Selected works, on paper.",
+    "printsIntro": "A number of photographs from each collection are available as archival fine-art prints, produced in small runs through a dedicated print partner. Paper, sizing, and framing are handled entirely on their side — I'm involved only in approving the print itself before it leaves the studio.\n\nNot every image is available as a print. Where one is, you'll find a \"View Print Options\" link on that photograph's page, which will take you to the print partner's site to review formats and place an order.",
+    "printsNote": "Ordering, framing, and shipping are handled entirely by the external print partner. This site exists to show the work — not to process print orders directly.",
+    "contactHeading": "Get in touch.",
+    "contactIntro": "For editorial commissions, exhibition inquiries, or general correspondence — a note here reaches me directly."
   },
   "collections": [
     {
@@ -13,60 +20,75 @@
           "title": "Through the Leaves",
           "location": "Tivoli, Italia",
           "year": 2026,
-          "size": "medium",
           "image": "images/APL03430.jpg",
           "description": "...",
           "camera": "Sony A7R III",
           "lens": "Tamron 28-75mm RXD f/2.8",
-          "printLink": "https://apecardphoto.darkroom.com/products/1898863"
+          "printLink": "https://apecardphoto.darkroom.com/products/1898863",
+          "aspectRatio": "4 / 5",
+          "printAvailable": true,
+          "featured": true,
+          "homepageOrder": 2
         },
         {
           "id": "p2",
           "title": "In His Own Shadows",
           "location": "Toulon, France",
           "year": 2025,
-          "size": "medium",
           "image": "images/APL01293-2.jpg",
           "description": "...",
           "camera": "Sony A7R III",
           "lens": "Tamron 28-75mm RXD f/2.8",
-          "printLink": "https://apecardphoto.darkroom.com/products/1898868"
+          "printLink": "https://apecardphoto.darkroom.com/products/1898868",
+          "aspectRatio": "4 / 5",
+          "printAvailable": true,
+          "featured": true,
+          "homepageOrder": 3
         },
         {
           "id": "p3",
           "title": "Over the Shoulder",
           "location": "Positano, Italia",
           "year": 2025,
-          "size": "medium",
           "image": "images/APL01977.jpg",
           "description": "...",
           "camera": "Sony A7R III",
           "lens": "Tamron 28-75mm RXD f/2.8",
-          "printLink": "https://apecardphoto.darkroom.com/"
+          "printLink": "https://apecardphoto.darkroom.com/",
+          "aspectRatio": "4 / 5",
+          "printAvailable": true,
+          "featured": true,
+          "homepageOrder": 5
         },
         {
           "id": "p4",
           "title": "Correspondence",
           "location": "Artignosc-sur-Verdon, France",
           "year": 2025,
-          "size": "medium",
           "image": "images/APL01100.jpg",
           "description": "...",
           "camera": "Sony A7R III",
           "lens": "Tamron 28-75mm RXD f/2.8",
-          "printLink": "https://apecardphoto.darkroom.com/products/1898866"
+          "printLink": "https://apecardphoto.darkroom.com/products/1898866",
+          "aspectRatio": "4 / 5",
+          "printAvailable": true,
+          "featured": false,
+          "homepageOrder": 999
         },
         {
           "id": "p5",
           "title": "Man of the Sea",
           "location": "Saint-Barthélemy, France",
           "year": 2025,
-          "size": "medium",
           "image": "images/APL00861.jpg",
           "description": "A portrait of a modern-day pirate of the Caribbean.",
           "camera": "Sony A7R III",
           "lens": "Tamron 28-75mm RXD f/2.8",
-          "printLink": "https://apecardphoto.darkroom.com/"
+          "printLink": "https://apecardphoto.darkroom.com/",
+          "aspectRatio": "4 / 5",
+          "printAvailable": true,
+          "featured": true,
+          "homepageOrder": 8
         }
       ]
     },
@@ -80,72 +102,90 @@
           "title": "Saint-Jean",
           "location": "Saint-Barthélemy, France",
           "year": 2025,
-          "size": "full",
           "image": "images/APL00810.jpg",
           "description": "...",
           "camera": "Sony A7R III",
           "lens": "Tamron 28-75mm RXD f/2.8",
-          "printLink": "https://apecardphoto.darkroom.com/products/1898885"
+          "printLink": "https://apecardphoto.darkroom.com/products/1898885",
+          "aspectRatio": "16 / 9",
+          "printAvailable": true,
+          "featured": true,
+          "homepageOrder": 1
         },
         {
           "id": "l2",
           "title": "North Face",
           "location": "Dolomites, Italy",
           "year": 2025,
-          "size": "large",
           "image": "images/APL00795(1).jpg",
           "description": "Scale is the subject. The figure, barely visible at the ridgeline, is left for the viewer to find.",
           "camera": "Sony A7R III",
           "lens": "24mm",
-          "printLink": "https://apecardphoto.darkroom.com/"
+          "printLink": "https://apecardphoto.darkroom.com/",
+          "aspectRatio": "3 / 2",
+          "printAvailable": true,
+          "featured": false,
+          "homepageOrder": 999
         },
         {
           "id": "l3",
           "title": "Low Tide",
           "location": "Brittany, France",
           "year": 2025,
-          "size": "medium",
           "image": "images/low-tide.jpg",
           "description": "The sand holds the shape of the water for exactly as long as the tide allows.",
           "camera": "Sony A7R III",
           "lens": "35mm",
-          "printLink": "https://apecardphoto.darkroom.com/"
+          "printLink": "https://apecardphoto.darkroom.com/",
+          "aspectRatio": "4 / 5",
+          "printAvailable": true,
+          "featured": false,
+          "homepageOrder": 999
         },
         {
           "id": "l4",
           "title": "Salt Flats",
           "location": "Atacama, Chile",
           "year": 2024,
-          "size": "small",
           "image": "images/salt-flats.jpg",
           "description": "No horizon line to speak of — only a gradient from white to blue.",
           "camera": "Sony A7R III",
           "lens": "55mm",
-          "printLink": "https://apecardphoto.darkroom.com/"
+          "printLink": "https://apecardphoto.darkroom.com/",
+          "aspectRatio": "2 / 3",
+          "printAvailable": true,
+          "featured": true,
+          "homepageOrder": 6
         },
         {
           "id": "l5",
           "title": "Harbor, Dusk",
           "location": "Kotor, Montenegro",
           "year": 2024,
-          "size": "full",
           "image": "images/harbor-dusk.jpg",
           "description": "The last working hour of the fishing boats, photographed from the far jetty.",
           "camera": "Sony A7R III",
           "lens": "85mm",
-          "printLink": "https://apecardphoto.darkroom.com/"
+          "printLink": "https://apecardphoto.darkroom.com/",
+          "aspectRatio": "16 / 9",
+          "printAvailable": true,
+          "featured": false,
+          "homepageOrder": 999
         },
         {
           "id": "l6",
           "title": "Interior Weather",
           "location": "Faroe Islands",
           "year": 2023,
-          "size": "medium",
           "image": "images/interior-weather.jpg",
           "description": "Four seasons of weather moved through this valley in the span of one afternoon.",
           "camera": "Sony A7R III",
           "lens": "24mm",
-          "printLink": "https://apecardphoto.darkroom.com/"
+          "printLink": "https://apecardphoto.darkroom.com/",
+          "aspectRatio": "4 / 5",
+          "printAvailable": true,
+          "featured": false,
+          "homepageOrder": 999
         }
       ]
     },
@@ -159,48 +199,60 @@
           "title": "Coachwork",
           "location": "Modena, Italy",
           "year": 2025,
-          "size": "large",
           "image": "images/coachwork.jpg",
           "description": "A body built by hand, photographed the same way — slowly, and without artificial light.",
           "camera": "Hasselblad X2D",
           "lens": "55mm",
-          "printLink": "https://apecardphoto.darkroom.com/"
+          "printLink": "https://apecardphoto.darkroom.com/",
+          "aspectRatio": "3 / 2",
+          "printAvailable": true,
+          "featured": true,
+          "homepageOrder": 7
         },
         {
           "id": "a2",
           "title": "Grid Position",
           "location": "Goodwood, England",
           "year": 2025,
-          "size": "full",
           "image": "images/grid-position.jpg",
           "description": "Fifteen minutes before the marshals opened the paddock. No crowd yet, no noise.",
           "camera": "Hasselblad X2D",
           "lens": "90mm",
-          "printLink": "https://apecardphoto.darkroom.com/"
+          "printLink": "https://apecardphoto.darkroom.com/",
+          "aspectRatio": "16 / 9",
+          "printAvailable": true,
+          "featured": true,
+          "homepageOrder": 4
         },
         {
           "id": "a3",
           "title": "Patina Study I",
           "location": "Turin, Italy",
           "year": 2024,
-          "size": "medium",
           "image": "images/patina-study-i.jpg",
           "description": "Forty years of use, documented the way a conservator would document a canvas.",
           "camera": "Hasselblad X2D",
           "lens": "120mm",
-          "printLink": "https://apecardphoto.darkroom.com/"
+          "printLink": "https://apecardphoto.darkroom.com/",
+          "aspectRatio": "4 / 5",
+          "printAvailable": true,
+          "featured": false,
+          "homepageOrder": 999
         },
         {
           "id": "a4",
           "title": "Workshop Light",
           "location": "Stuttgart, Germany",
           "year": 2023,
-          "size": "small",
           "image": "images/workshop-light.jpg",
           "description": "The single window in the restoration bay decides the whole photograph.",
           "camera": "Hasselblad X2D",
           "lens": "55mm",
-          "printLink": "https://apecardphoto.darkroom.com/"
+          "printLink": "https://apecardphoto.darkroom.com/",
+          "aspectRatio": "2 / 3",
+          "printAvailable": true,
+          "featured": false,
+          "homepageOrder": 999
         }
       ]
     }

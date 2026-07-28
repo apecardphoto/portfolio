@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preload" href="content.json" as="fetch" crossorigin="anonymous">
 <style>
   :root{
     --bg-ivory:#FAF9F6;
@@ -120,8 +121,12 @@
   nav.main-nav a.active::after, nav.main-nav a:hover::after{transform:scaleX(1);}
 
   .sub-panel{
-    position:absolute;top:100%;left:-8px;padding-top:16px;
-    display:none;flex-direction:column;gap:10px;min-width:180px;
+    position:absolute;top:100%;left:-16px;margin-top:10px;
+    padding:14px 18px;
+    display:none;flex-direction:column;gap:10px;min-width:190px;
+    background:rgba(250,249,246,.86);
+    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    border:1px solid rgba(220,213,201,.7);
   }
   .nav-item:hover .sub-panel, .nav-item:focus-within .sub-panel{display:flex;}
   .sub-panel a{color:var(--ink-muted);font-size:11.5px;letter-spacing:.06em;}
@@ -174,7 +179,8 @@
     }
     .sub-panel{
       position:static;display:flex !important;flex-direction:column;
-      padding:6px 0 4px 20px;gap:14px;min-width:0;
+      padding:6px 0 4px 20px;gap:14px;min-width:0;margin-top:0;
+      background:transparent;border:none;-webkit-backdrop-filter:none;backdrop-filter:none;
     }
     .sub-panel a{font-size:14px;padding:0;}
 
@@ -204,7 +210,7 @@
   }
 
   /* ---------- View transition ---------- */
-  #app{opacity:1;transition:opacity 420ms ease;}
+  #app{opacity:1;transition:opacity 420ms ease;min-height:70vh;}
   #app.leaving{opacity:0;}
 
   /* ---------- Home hero spacer ---------- */
@@ -216,11 +222,20 @@
     display:grid;grid-template-columns:repeat(12,1fr);
     column-gap:var(--gutter);row-gap:clamp(40px,7vw,96px);
     margin-bottom:clamp(40px,7vw,96px);
+    align-items:start;
   }
   .tile{position:relative;}
-  .tile-frame{overflow:hidden;background:var(--line);}
+  /* aspect-ratio is set inline per-photo (from the CMS "Shape" field) so the
+     browser reserves the exact box before the image loads — this is what
+     prevents layout shift. object-fit:contain means the photo is never
+     cropped: whatever doesn't fill the box just letterboxes, centered. */
+  .tile-frame{
+    overflow:hidden;background:var(--bg-ivory-deep);
+    display:flex;align-items:center;justify-content:center;
+    width:100%;
+  }
   .tile-frame img{
-    width:100%;height:100%;object-fit:cover;display:block;
+    width:100%;height:100%;object-fit:contain;display:block;
     filter:grayscale(18%) sepia(6%) contrast(.98) brightness(1.02);
     transform:scale(1.001);
     transition:transform 1.1s var(--ease);
@@ -228,20 +243,14 @@
   .tile a{display:block;cursor:pointer;}
   .tile a:hover .tile-frame img{transform:scale(1.035);}
 
-  .tile--full{grid-column:1/13;}
-  .tile--full .tile-frame{aspect-ratio:16/9.2;}
-  .tile--large{grid-column:1/8;}
-  .tile--large .tile-frame{aspect-ratio:4/5;}
-  .tile--medium{grid-column:1/6;}
-  .tile--medium .tile-frame{aspect-ratio:4/5;}
-  .tile--small{grid-column:1/5;}
-  .tile--small .tile-frame{aspect-ratio:3/4;}
+  /* Solo = full editorial width. Pair = two side by side.
+     Which one a photo gets is decided automatically from its Shape:
+     wide/landscape shapes read well full-width; square/portrait shapes
+     pair up two at a time, magazine-spread style. */
+  .tile--solo{grid-column:1/13;}
   .tile--pairL{grid-column:1/7;}
   .tile--pairR{grid-column:7/13;}
-  .tile--pairR .tile-frame, .tile--pairL .tile-frame{aspect-ratio:4/5;}
   .tile--pair-low{margin-top:clamp(40px,9vw,120px);}
-  .tile--offsetR{grid-column:6/13;}
-  .tile--offsetR .tile-frame{aspect-ratio:5/4;}
 
   .tile-caption{
     margin-top:14px;display:flex;justify-content:space-between;gap:16px;
@@ -250,16 +259,16 @@
   .tile-caption .t-title{font-family:'Fraunces', serif;font-style:italic;font-size:15px;color:var(--ink);letter-spacing:0;}
   .tile-caption .t-meta{white-space:nowrap;text-transform:uppercase;padding-top:2px;}
 
-  .quiet-label{
-    grid-column:1/13;text-align:left;margin:0 0 -20px;
+  /* Desktop safety cap: no single photo should ever exceed one screen's height. */
+  @media (min-width:861px){
+    .tile-frame{max-height:82vh;}
   }
 
   @media (max-width:860px){
     .sequence{row-gap:56px;}
-    .tile--full,.tile--large,.tile--medium,.tile--small,.tile--pairL,.tile--pairR,.tile--offsetR,.tile--pair-low{
+    .tile--solo,.tile--pairL,.tile--pairR,.tile--pair-low{
       grid-column:1/13;margin-top:0;
     }
-    .tile--full .tile-frame{aspect-ratio:4/5;}
   }
 
   /* ---------- Page intros ---------- */
@@ -301,9 +310,16 @@
     max-width:var(--max);margin:0 auto;padding:172px var(--gutter) 0;
   }
   .artwork-image{
-    background:var(--line);overflow:hidden;margin-bottom:36px;
+    background:var(--bg-ivory-deep);overflow:hidden;margin-bottom:36px;
+    display:flex;align-items:center;justify-content:center;
   }
-  .artwork-image img{width:100%;display:block;filter:grayscale(18%) sepia(6%) contrast(.98) brightness(1.02);}
+  .artwork-image img{
+    width:100%;height:100%;object-fit:contain;display:block;
+    filter:grayscale(18%) sepia(6%) contrast(.98) brightness(1.02);
+  }
+  @media (min-width:861px){
+    .artwork-image{max-height:80vh;}
+  }
   .artwork-meta-row{
     display:grid;grid-template-columns:1.3fr .7fr;gap:60px;
     padding-bottom:100px;border-bottom:1px solid var(--line);margin-bottom:70px;
@@ -434,94 +450,120 @@
 
 <script>
 /* =====================================================================
-   CONTENT LAYER — this block is the stand-in for the future Sanity CMS.
-   Shape mirrors the planned schema: Collection { title, slug, intro,
-   photos[] }, Photograph { title, location, year, description, camera,
-   lens, printLink, size, featured }.
-   Placeholder imagery only — final build wires this to real uploads.
+   CONTENT LAYER — populated at runtime from content.json (see init()
+   below). Every render function below just reads from COLLECTIONS / SITE
+   once they've been filled in.
 ===================================================================== */
 
-// COLLECTIONS is populated at runtime from content.json (see init() below).
-// This keeps every render function below completely unchanged — they just
-// read from COLLECTIONS once it's been filled in.
 let COLLECTIONS = {};
-let SITE = { aboutPortrait: "images/profile.jpg" };
-
-// Manual homepage sequence — the CMS equivalent of a "featured" checkbox
-// plus an editor-controlled layout hint per item, so pacing stays
-// art-directed rather than auto-generated.
-const HOME_SEQUENCE = [
-  { ref:["landscape","l1"], size:"full" },
-  { pair:[ ["portraits","p2"], ["automotive","a3"] ] },
-  { ref:["automotive","a2"], size:"full" },
-  { pair:[ ["landscape","l4"], ["portraits","p5"] ] },
-  { ref:["portraits","p4"], size:"full" },
-  { pair:[ ["automotive","a1"], ["landscape","l3"] ] },
-];
-
-function getPhoto(collectionKey, photoId){
-  const c = COLLECTIONS[collectionKey];
-  const p = c.photos.find(ph => ph.id === photoId);
-  return { ...p, collectionKey, collectionTitle: c.title };
-}
+let SITE = {
+  aboutPortrait: "images/profile.jpg",
+  aboutHeading: "About",
+  aboutText: "",
+  printsHeading: "Prints",
+  printsIntro: "",
+  printsNote: "",
+  contactHeading: "Get in touch.",
+  contactIntro: ""
+};
 
 /* =====================================================================
    RENDER HELPERS
 ===================================================================== */
 
-function tileMarkup(photo, sizeClass, showCaption=true){
+// A photo's "aspectRatio" (set per-photo in the CMS, e.g. "4 / 5") decides
+// two things at once: the box it reserves before it loads (no layout
+// shift), and whether it stands alone full-width or pairs up with the
+// next photo. Wide/landscape shapes read well full-width; square/portrait
+// shapes pair up two at a time.
+function ratioValue(aspectRatio){
+  const parts = String(aspectRatio || "4 / 5").split('/').map(n => parseFloat(n));
+  if(parts.length === 2 && parts[1]) return parts[0] / parts[1];
+  return 0.8;
+}
+function isPairable(photo){
+  return ratioValue(photo.aspectRatio) < 1.15;
+}
+
+function paragraphs(text){
+  if(!text) return '';
+  return String(text)
+    .split(/\n\s*\n/)
+    .map(p => p.trim())
+    .filter(Boolean)
+    .map(p => `<p>${p}</p>`)
+    .join('');
+}
+
+function tileMarkup(photo, mode, opts={}){
+  const { lowOffset=false, isHero=false } = opts;
+  const modifier = mode === 'solo' ? 'tile--solo' : (mode === 'pairL' ? 'tile--pairL' : 'tile--pairR');
+  const lowClass = lowOffset ? ' tile--pair-low' : '';
+  const ratio = photo.aspectRatio || '4 / 5';
+  const altText = [photo.title, photo.location].filter(Boolean).join(', ');
+  const imgAttrs = isHero
+    ? `loading="eager" fetchpriority="high" decoding="async"`
+    : `loading="lazy" decoding="async"`;
+
   return `
-    <div class="tile tile--${sizeClass} reveal">
+    <div class="tile ${modifier}${lowClass} reveal">
       <a href="#/work/${photo.collectionKey}/${photo.id}" data-link>
-        <div class="tile-frame"><img src="${photo.image}" alt="${photo.title}, ${photo.location}" loading="lazy"></div>
+        <div class="tile-frame" style="aspect-ratio:${ratio};">
+          <img src="${photo.image}" alt="${altText}" width="1200" height="${Math.round(1200 / ratioValue(ratio))}" ${imgAttrs}>
+        </div>
       </a>
-      ${showCaption ? `
       <div class="tile-caption">
-        <span class="t-title">${photo.title}</span>
+        <span class="t-title">${photo.title || ''}</span>
         <span class="t-meta">${photo.location.split(',')[0]} — ${photo.year}</span>
-      </div>` : ``}
+      </div>
     </div>`;
 }
 
-function renderHome(){
-  let html = `<div class="home-top-space"></div><div class="sequence">`;
-  let labelPlaced = false;
+// Shared by the homepage and every collection page: lays a list of photos
+// out solo/paired based on shape, alternating which side of a pair sits
+// lower for editorial rhythm. First item can be marked as the LCP hero.
+function renderSequence(photos, opts={}){
+  const { heroFirst=false } = opts;
+  let html = '';
   let pairCount = 0;
-
-  HOME_SEQUENCE.forEach((entry, idx) => {
-    if(entry.ref){
-      const [ck, pid] = entry.ref;
-      const photo = getPhoto(ck, pid);
-      if(!labelPlaced && idx > 0){
-        html += `<div class="quiet-label eyebrow reveal">Selected Works</div>`;
-        labelPlaced = true;
-      }
-      html += tileMarkup(photo, entry.size === "full" ? "full" : entry.size);
-    } else if(entry.pair){
-      const [a, b] = entry.pair;
-      const pa = getPhoto(a[0], a[1]);
-      const pb = getPhoto(b[0], b[1]);
-      // alternate which side sits lower from one pair to the next,
-      // rather than always dropping the right image
+  let i = 0;
+  while(i < photos.length){
+    const cur = photos[i];
+    const isHero = heroFirst && i === 0;
+    if(!isPairable(cur)){
+      html += tileMarkup(cur, 'solo', { isHero });
+      i += 1;
+      continue;
+    }
+    const next = photos[i+1];
+    if(next && isPairable(next)){
       const leftLow = pairCount % 2 === 1;
       pairCount++;
-      html += `<div class="tile tile--pairL${leftLow ? ' tile--pair-low' : ''} reveal">
-        <a href="#/work/${pa.collectionKey}/${pa.id}" data-link>
-          <div class="tile-frame"><img src="${pa.image}" alt="${pa.title}, ${pa.location}" loading="lazy"></div>
-        </a>
-        <div class="tile-caption"><span class="t-title">${pa.title}</span><span class="t-meta">${pa.location.split(',')[0]} — ${pa.year}</span></div>
-      </div>`;
-      html += `<div class="tile tile--pairR${leftLow ? '' : ' tile--pair-low'} reveal">
-        <a href="#/work/${pb.collectionKey}/${pb.id}" data-link>
-          <div class="tile-frame"><img src="${pb.image}" alt="${pb.title}, ${pb.location}" loading="lazy"></div>
-        </a>
-        <div class="tile-caption"><span class="t-title">${pb.title}</span><span class="t-meta">${pb.location.split(',')[0]} — ${pb.year}</span></div>
-      </div>`;
+      html += tileMarkup(cur, 'pairL', { lowOffset:leftLow, isHero });
+      html += tileMarkup(next, 'pairR', { lowOffset:!leftLow });
+      i += 2;
+    } else {
+      // an unmatched square/portrait photo reads better solo than as a
+      // narrow half-width orphan
+      html += tileMarkup(cur, 'solo', { isHero });
+      i += 1;
     }
-  });
-
-  html += `</div>`;
+  }
   return html;
+}
+
+function renderHome(){
+  const featured = [];
+  Object.values(COLLECTIONS).forEach(c => {
+    c.photos.forEach(p => {
+      if(p.featured){
+        featured.push({ ...p, collectionKey: c.slug });
+      }
+    });
+  });
+  featured.sort((a, b) => (a.homepageOrder ?? 999) - (b.homepageOrder ?? 999));
+
+  return `<div class="home-top-space"></div><div class="sequence">${renderSequence(featured, { heroFirst:true })}</div>`;
 }
 
 function renderWorkIndex(){
@@ -548,26 +590,17 @@ function renderCollection(slug){
   const c = COLLECTIONS[slug];
   if(!c) return renderNotFound();
 
-  let html = `
+  const photos = c.photos.map(p => ({ ...p, collectionKey: slug }));
+
+  return `
     <div class="page-hero reveal">
       <div class="eyebrow">Work — ${c.title}</div>
       <h1 class="serif">${c.title}</h1>
       <p>${c.intro}</p>
     </div>
-    <div class="sequence">`;
-
-  c.photos.forEach((p, i) => {
-    const photo = { ...p, collectionKey: slug };
-    if(p.size === "full"){
-      html += tileMarkup(photo, "full");
-    } else {
-      // pair consecutive medium/small/large items when possible for editorial rhythm
-      html += tileMarkup(photo, p.size);
-    }
-  });
-
-  html += `</div><div style="height:40px"></div>`;
-  return html;
+    <div class="sequence">${renderSequence(photos, { heroFirst:true })}</div>
+    <div style="height:40px"></div>
+  `;
 }
 
 function renderArtwork(collectionKey, photoId){
@@ -576,17 +609,20 @@ function renderArtwork(collectionKey, photoId){
   const photo = c.photos.find(p => p.id === photoId);
   if(!photo) return renderNotFound();
 
+  const altText = [photo.title, photo.location].filter(Boolean).join(', ');
+  const showPrint = photo.printAvailable !== false && photo.printLink;
+
   return `
     <div class="artwork">
       <a class="back-link reveal" href="#/work/${collectionKey}" data-link>&larr; ${c.title}</a>
-      <div class="artwork-image reveal">
-        <img src="${photo.image.replace(/\/\d+\/\d+$/, '/1800/1150')}" alt="${photo.title}, ${photo.location}">
+      <div class="artwork-image reveal" style="aspect-ratio:${photo.aspectRatio || '4 / 5'};">
+        <img src="${photo.image}" alt="${altText}" loading="eager" fetchpriority="high" decoding="async">
       </div>
       <div class="artwork-meta-row reveal">
         <div class="artwork-main">
-          <h1 class="artwork-title">${photo.title}</h1>
+          ${photo.title ? `<h1 class="artwork-title">${photo.title}</h1>` : ``}
           <div class="artwork-location">${photo.location} — ${photo.year}</div>
-          <p class="artwork-desc">${photo.description}</p>
+          ${photo.description ? `<p class="artwork-desc">${photo.description}</p>` : ``}
         </div>
         <div class="artwork-side">
           <dl>
@@ -594,7 +630,7 @@ function renderArtwork(collectionKey, photoId){
             <dt>Lens</dt><dd>${photo.lens}</dd>
             <dt>Collection</dt><dd>${c.title}</dd>
           </dl>
-          ${photo.printLink ? `
+          ${showPrint ? `
           <div class="eyebrow" style="margin-bottom:14px;">Available as a fine-art print</div>
           <a class="print-btn" href="${photo.printLink}" target="_blank" rel="noopener">View Print Options</a>
           ` : ``}
@@ -607,14 +643,12 @@ function renderArtwork(collectionKey, photoId){
 function renderAbout(){
   return `
     <div class="about-wrap">
-      <div class="about-portrait reveal">
-        <img src="${SITE.aboutPortrait}" alt="Alexander Pécard-Leese">
+      <div class="about-portrait reveal" style="aspect-ratio:4/5;">
+        <img src="${SITE.aboutPortrait}" alt="Alexander Pécard-Leese" loading="eager" fetchpriority="high" decoding="async">
       </div>
-      <h1 class="reveal">On light, and waiting for it.</h1>
+      <h1 class="reveal">${SITE.aboutHeading}</h1>
       <div class="reveal">
-        <p>I've come to think of a camera as a slow instrument, even when the shutter is fast. Most of what happens before a photograph is made is attention — to a room, a coastline, a face — long enough that whatever is true about it has a chance to appear on its own terms.</p>
-        <p>I work across three subjects that don't, on the surface, have much in common: people, landscapes, and cars. What connects them is a working method rather than a style — I try to arrive early, stay longer than seems necessary, and photograph only once the obvious version of the scene has passed.</p>
-        <p>I'm not especially interested in decisive moments. I'm interested in the ordinary minutes on either side of them, which is usually where the actual subject is standing.</p>
+        ${paragraphs(SITE.aboutText)}
       </div>
     </div>
   `;
@@ -625,17 +659,16 @@ function renderPrints(){
     <div class="prints-wrap">
       <div class="page-hero reveal" style="padding:0 0 50px;">
         <div class="eyebrow">Prints</div>
-        <h1 class="serif">Selected works, on paper.</h1>
+        <h1 class="serif">${SITE.printsHeading}</h1>
       </div>
       <div class="prints-body">
         <div class="reveal">
-          <p>A number of photographs from each collection are available as archival fine-art prints, produced in small runs through a dedicated print partner. Paper, sizing, and framing are handled entirely on their side — I'm involved only in approving the print itself before it leaves the studio.</p>
-          <p>Not every image is available as a print. Where one is, you'll find a "View Print Options" link on that photograph's page, which will take you to the print partner's site to review formats and place an order.</p>
+          ${paragraphs(SITE.printsIntro)}
           <a class="print-btn" href="https://apecardphoto.darkroom.com/" target="_blank" rel="noopener" style="margin-top:8px;">Explore Prints</a>
         </div>
         <div class="prints-note reveal">
           <div class="eyebrow">Please note</div>
-          Ordering, framing, and shipping are handled entirely by the external print partner. This site exists to show the work — not to process print orders directly.
+          ${SITE.printsNote}
         </div>
       </div>
     </div>
@@ -645,8 +678,8 @@ function renderPrints(){
 function renderContact(){
   return `
     <div class="contact-wrap">
-      <h1 class="reveal">Get in touch.</h1>
-      <p class="reveal">For editorial commissions, exhibition inquiries, or general correspondence — a note here reaches me directly.</p>
+      <h1 class="reveal">${SITE.contactHeading}</h1>
+      <p class="reveal">${SITE.contactIntro}</p>
 
       <form class="reveal" id="contactForm" action="https://formspree.io/f/xeeyneoy" method="POST">
         <div class="field">
@@ -690,10 +723,6 @@ function renderContact(){
         <div>
           <div class="eyebrow">Email</div>
           <a href="mailto:apecardphoto@gmail.com">apecardphoto@gmail.com</a>
-        </div>
-        <div>
-          <div class="eyebrow">Elsewhere</div>
-          <a href="#" target="_blank" rel="noopener">Instagram</a>
         </div>
       </div>
     </div>
