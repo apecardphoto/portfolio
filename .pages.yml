@@ -8,6 +8,14 @@ content:
     type: file
     path: content.json
     fields:
+      - name: site
+        label: Site-wide
+        type: object
+        fields:
+          - name: aboutPortrait
+            label: About Page Photo
+            type: image
+
       - name: collections
         label: Collections
         type: object
