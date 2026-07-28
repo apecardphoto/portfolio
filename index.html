@@ -131,6 +131,56 @@
 
   main{padding-top:0;}
 
+  /* ---------- Mobile navigation (mobile only — desktop nav above is untouched) ---------- */
+  @media (max-width:760px){
+    .header-inner{align-items:center;}
+
+    .menu-toggle{
+      display:inline-flex;align-items:center;justify-content:center;
+      width:30px;height:30px;padding:0;
+      background:none;border:none;cursor:pointer;
+      z-index:110;position:relative;
+    }
+    .menu-toggle-bars{
+      display:inline-flex;flex-direction:column;justify-content:center;gap:5px;width:20px;
+    }
+    .menu-toggle-bars span{
+      display:block;height:1px;width:100%;background:var(--ink);
+      transition:transform .35s var(--ease), opacity .25s var(--ease);
+    }
+    header.site-header.nav-open .menu-toggle-bars span:nth-child(1){transform:translateY(6px) rotate(45deg);}
+    header.site-header.nav-open .menu-toggle-bars span:nth-child(2){opacity:0;}
+    header.site-header.nav-open .menu-toggle-bars span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+
+    nav.main-nav{
+      position:fixed;top:0;left:0;right:0;bottom:0;z-index:105;
+      flex-direction:column;align-items:flex-start;justify-content:center;
+      gap:28px;
+      background:var(--bg-ivory);
+      padding:110px var(--gutter) 70px;
+      font-size:16px;
+      overflow-y:auto;
+      opacity:0;visibility:hidden;pointer-events:none;
+      transform:translateY(-10px);
+      transition:opacity .4s var(--ease), transform .4s var(--ease), visibility 0s linear .4s;
+    }
+    header.site-header.nav-open nav.main-nav{
+      opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0);
+      transition:opacity .4s var(--ease), transform .4s var(--ease), visibility 0s linear 0s;
+    }
+    nav.main-nav .nav-item{width:100%;}
+    nav.main-nav a, nav.main-nav .nav-label{
+      padding:12px 0;font-size:16px;display:block;width:100%;
+    }
+    .sub-panel{
+      position:static;display:flex !important;flex-direction:column;
+      padding:6px 0 4px 20px;gap:14px;min-width:0;
+    }
+    .sub-panel a{font-size:14px;padding:0;}
+
+    body.menu-open{overflow:hidden;}
+  }
+
   footer.site-footer{
     border-top:1px solid var(--line);
     margin-top:120px;
@@ -307,14 +357,23 @@
   .contact-wrap > p{font-size:15px;line-height:1.8;color:var(--ink-muted);margin:0 0 56px;max-width:52ch;}
   .field{margin-bottom:30px;}
   .field label{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:10px;}
-  .field input, .field textarea{
+  .field input, .field textarea, .field select{
     width:100%;border:none;border-bottom:1px solid var(--line-strong);
     background:transparent;font-family:'Work Sans', sans-serif;font-size:15px;color:var(--ink);
-    padding:8px 0;font-weight:300;
+    padding:8px 0;font-weight:300;border-radius:0;
   }
-  .field input:focus, .field textarea:focus{border-bottom-color:var(--ink);}
+  .field input:focus, .field textarea:focus, .field select:focus{border-bottom-color:var(--ink);}
   .field textarea{resize:vertical;min-height:100px;}
-  .contact-submit{margin-top:10px;}
+  .field select{
+    -webkit-appearance:none;-moz-appearance:none;appearance:none;
+    cursor:pointer;
+    background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="6"><path d="M0 0l5 6 5-6z" fill="%235C574F"/></svg>');
+    background-repeat:no-repeat;background-position:right 2px center;background-size:10px 6px;
+    padding-right:20px;
+  }
+  .field select:invalid{color:var(--ink-faint);}
+  .contact-submit{margin-top:10px;transition:opacity .3s var(--ease);}
+  .contact-submit[disabled]{opacity:.5;cursor:default;}
   .contact-direct{
     margin-top:70px;padding-top:36px;border-top:1px solid var(--line);
     display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;
@@ -323,8 +382,14 @@
   .contact-direct a{font-size:15px;}
   .contact-direct a:hover{color:var(--ink-muted);}
 
-  /* toast for demo form */
   .form-note{font-size:12px;color:var(--ink-faint);margin-top:16px;font-style:italic;}
+  .form-note--error{color:#8B4A3B;font-style:normal;}
+
+  .contact-success h2{
+    font-family:'Fraunces', serif;font-style:italic;font-weight:400;
+    font-size:clamp(24px,3vw,32px);margin:14px 0 14px;
+  }
+  .contact-success p{font-size:15px;line-height:1.85;color:var(--ink-muted);max-width:48ch;margin:0;}
 </style>
 </head>
 <body>
@@ -334,7 +399,9 @@
     <a href="#/" class="brand" data-link>Alexander Pécard-Leese
       <small>Fine Art Photography</small>
     </a>
-    <button class="menu-toggle" aria-label="Menu">Menu</button>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mainNav">
+      <span class="menu-toggle-bars"><span></span><span></span><span></span></span>
+    </button>
     <nav class="main-nav" id="mainNav">
       <div class="nav-item"><a href="#/" data-link data-route="/">Home</a></div>
       <div class="nav-item">
@@ -379,6 +446,7 @@
 // This keeps every render function below completely unchanged — they just
 // read from COLLECTIONS once it's been filled in.
 let COLLECTIONS = {};
+let SITE = { aboutPortrait: "images/profile.jpg" };
 
 // Manual homepage sequence — the CMS equivalent of a "featured" checkbox
 // plus an editor-controlled layout hint per item, so pacing stays
@@ -541,7 +609,7 @@ function renderAbout(){
   return `
     <div class="about-wrap">
       <div class="about-portrait reveal">
-        <img src="images/APL02083-3.jpg" alt="Alexander Pécard-Leese">
+        <img src="${SITE.aboutPortrait}" alt="Alexander Pécard-Leese">
       </div>
       <h1 class="reveal">On light, and waiting for it.</h1>
       <div class="reveal">
@@ -580,26 +648,49 @@ function renderContact(){
     <div class="contact-wrap">
       <h1 class="reveal">Get in touch.</h1>
       <p class="reveal">For editorial commissions, exhibition inquiries, or general correspondence — a note here reaches me directly.</p>
-      <form class="reveal" id="contactForm">
+
+      <form class="reveal" id="contactForm" action="https://formspree.io/f/xeeyneoy" method="POST">
         <div class="field">
           <label for="name">Name</label>
-          <input type="text" id="name" required>
+          <input type="text" id="name" name="name" autocomplete="name" required>
         </div>
         <div class="field">
           <label for="email">Email</label>
-          <input type="email" id="email" required>
+          <input type="email" id="email" name="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="inquiryType">Inquiry Type</label>
+          <select id="inquiryType" name="inquiry_type" required>
+            <option value="" disabled selected hidden>Select one</option>
+            <option value="Print Purchase">Print purchase</option>
+            <option value="Commission / Assignment">Commission / assignment</option>
+            <option value="Press / Publication">Press / publication</option>
+            <option value="General Inquiry">General inquiry</option>
+            <option value="Other">Other</option>
+          </select>
         </div>
         <div class="field">
           <label for="message">Message</label>
-          <textarea id="message" required></textarea>
+          <textarea id="message" name="message" required></textarea>
         </div>
+
+        <input type="hidden" name="_subject" value="New inquiry — Alexander Pécard-Leese">
+        <input type="text" name="_gotcha" style="position:absolute;left:-9999px;" tabindex="-1" autocomplete="off" aria-hidden="true">
+
         <button type="submit" class="print-btn contact-submit">Send Message</button>
-        <div class="form-note" id="formNote" style="display:none;">Thank you — this is a design prototype, so the message wasn't actually sent.</div>
+        <div class="form-note" id="formNote" role="status" aria-live="polite" style="display:none;"></div>
       </form>
+
+      <div class="contact-success reveal" id="contactSuccess" role="status" aria-live="polite" hidden>
+        <div class="eyebrow">Message sent</div>
+        <h2>Thank you.</h2>
+        <p>Your note has been received. I read every message personally and will reply as soon as I can.</p>
+      </div>
+
       <div class="contact-direct reveal">
         <div>
           <div class="eyebrow">Email</div>
-          <a href="mailto:studio@alexanderpecardleese.com">studio@alexanderpecardleese.com</a>
+          <a href="mailto:apecardphoto@gmail.com">apecardphoto@gmail.com</a>
         </div>
         <div>
           <div class="eyebrow">Elsewhere</div>
@@ -691,9 +782,48 @@ function attachScrollReveal(){
 function attachContactForm(){
   const form = document.getElementById('contactForm');
   if(!form) return;
-  form.addEventListener('submit', (e) => {
+
+  const submitBtn = form.querySelector('.contact-submit');
+  const noteEl = document.getElementById('formNote');
+  const successEl = document.getElementById('contactSuccess');
+  const submitBtnDefaultLabel = submitBtn.textContent;
+
+  function showNote(message, isError){
+    noteEl.textContent = message;
+    noteEl.classList.toggle('form-note--error', !!isError);
+    noteEl.style.display = message ? 'block' : 'none';
+  }
+
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    document.getElementById('formNote').style.display = 'block';
+    showNote('');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+
+    try{
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if(response.ok){
+        form.hidden = true;
+        successEl.hidden = false;
+      } else {
+        const data = await response.json().catch(() => null);
+        const message = (data && Array.isArray(data.errors) && data.errors.length)
+          ? data.errors.map(err => err.message).join(' ')
+          : 'Something went wrong sending your message. Please try again, or email me directly below.';
+        showNote(message, true);
+        submitBtn.disabled = false;
+        submitBtn.textContent = submitBtnDefaultLabel;
+      }
+    } catch(err){
+      showNote('Something went wrong sending your message. Please check your connection and try again, or email me directly below.', true);
+      submitBtn.disabled = false;
+      submitBtn.textContent = submitBtnDefaultLabel;
+    }
   });
 }
 
@@ -715,6 +845,26 @@ function updateHeaderState(){
 window.addEventListener('scroll', updateHeaderState, { passive:true });
 updateHeaderState();
 
+/* ---------- Mobile menu ---------- */
+const menuToggle = document.getElementById('menuToggle');
+const mainNav = document.getElementById('mainNav');
+function setNavOpen(open){
+  siteHeader.classList.toggle('nav-open', open);
+  document.body.classList.toggle('menu-open', open);
+  menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+}
+menuToggle.addEventListener('click', () => {
+  setNavOpen(!siteHeader.classList.contains('nav-open'));
+});
+mainNav.addEventListener('click', (e) => {
+  if(e.target.closest('a[data-link]')) setNavOpen(false);
+});
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape') setNavOpen(false);
+});
+window.addEventListener('hashchange', () => setNavOpen(false));
+
 /* =====================================================================
    INIT — fetch content.json (managed via Pages CMS), populate COLLECTIONS,
    then do the first render. Everything above this point is unchanged.
@@ -725,6 +875,7 @@ async function init(){
     if(!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     data.collections.forEach(c => { COLLECTIONS[c.slug] = c; });
+    if(data.site) SITE = { ...SITE, ...data.site };
   } catch(err){
     console.error('Could not load content.json:', err);
     app.innerHTML = `
