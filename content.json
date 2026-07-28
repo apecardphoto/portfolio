@@ -14,10 +14,10 @@
           "location": "Lisbon, Portugal",
           "year": 2026,
           "size": "large",
-          "image": "images/quiet-hour.jpg",
-          "description": "A pause between takes, caught before the sitter remembered the camera was there. The light does the introducing.",
-          "camera": "Leica SL2",
-          "lens": "90mm f/2",
+          "image": "images/APL03430.jpg",
+          "description": "...",
+          "camera": "Sony A7R III",
+          "lens": "Tamron 28-75mm RXD f/2.8",
           "printLink": "https://apecardphoto.darkroom.com/"
         },
         {
@@ -28,8 +28,8 @@
           "size": "medium",
           "image": "images/window-seat.jpg",
           "description": "Portraiture as negotiation — half the frame given to the sitter, half to the room that shaped them.",
-          "camera": "Leica SL2",
-          "lens": "50mm f/1.4",
+          "camera": "Sony A7R III",
+          "lens": "Tamron 28-75mm RXD f/2.8",
           "printLink": "https://apecardphoto.darkroom.com/"
         },
         {
@@ -40,8 +40,8 @@
           "size": "small",
           "image": "images/after-the-rehearsal.jpg",
           "description": "Fatigue photographs honestly. This was the frame after the one everyone asked for.",
-          "camera": "Leica SL2",
-          "lens": "75mm f/2",
+          "camera": "Sony A7R III",
+          "lens": "Tamron 28-75mm RXD f/2.8",
           "printLink": "https://apecardphoto.darkroom.com/"
         },
         {
@@ -52,8 +52,8 @@
           "size": "full",
           "image": "images/correspondence.jpg",
           "description": "Two sitters, one letter between them, read only once. The second reading is for the print.",
-          "camera": "Leica SL2",
-          "lens": "35mm f/1.4",
+          "camera": "Sony A7R III",
+          "lens": "Tamron 28-75mm RXD f/2.8",
           "printLink": "https://apecardphoto.darkroom.com/"
         },
         {
@@ -64,8 +64,8 @@
           "size": "medium",
           "image": "images/held-still.jpg",
           "description": "A portrait made without direction — the stillness belongs entirely to the sitter.",
-          "camera": "Leica SL2",
-          "lens": "90mm f/2",
+          "camera": "Sony A7R III",
+          "lens": "Tamron 28-75mm RXD f/2.8",
           "printLink": "https://apecardphoto.darkroom.com/"
         }
       ]
@@ -83,7 +83,7 @@
           "size": "full",
           "image": "images/morning-light.jpg",
           "description": "The fog burns off the plain in under ten minutes. This was minute seven.",
-          "camera": "Sony A7 IV",
+          "camera": "Sony A7R III",
           "lens": "40mm",
           "printLink": "https://apecardphoto.darkroom.com/"
         },
@@ -95,7 +95,7 @@
           "size": "large",
           "image": "images/north-face.jpg",
           "description": "Scale is the subject. The figure, barely visible at the ridgeline, is left for the viewer to find.",
-          "camera": "Sony A7 IV",
+          "camera": "Sony A7R III",
           "lens": "24mm",
           "printLink": "https://apecardphoto.darkroom.com/"
         },
@@ -107,7 +107,7 @@
           "size": "medium",
           "image": "images/low-tide.jpg",
           "description": "The sand holds the shape of the water for exactly as long as the tide allows.",
-          "camera": "Sony A7 IV",
+          "camera": "Sony A7R III",
           "lens": "35mm",
           "printLink": "https://apecardphoto.darkroom.com/"
         },
@@ -119,7 +119,7 @@
           "size": "small",
           "image": "images/salt-flats.jpg",
           "description": "No horizon line to speak of — only a gradient from white to blue.",
-          "camera": "Sony A7 IV",
+          "camera": "Sony A7R III",
           "lens": "55mm",
           "printLink": "https://apecardphoto.darkroom.com/"
         },
@@ -131,7 +131,7 @@
           "size": "full",
           "image": "images/harbor-dusk.jpg",
           "description": "The last working hour of the fishing boats, photographed from the far jetty.",
-          "camera": "Sony A7 IV",
+          "camera": "Sony A7R III",
           "lens": "85mm",
           "printLink": "https://apecardphoto.darkroom.com/"
         },
@@ -143,7 +143,7 @@
           "size": "medium",
           "image": "images/interior-weather.jpg",
           "description": "Four seasons of weather moved through this valley in the span of one afternoon.",
-          "camera": "Sony A7 IV",
+          "camera": "Sony A7R III",
           "lens": "24mm",
           "printLink": "https://apecardphoto.darkroom.com/"
         }
