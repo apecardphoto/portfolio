@@ -1,0 +1,83 @@
+media:
+  input: images
+  output: images
+
+content:
+  - name: portfolio
+    label: Portfolio Content
+    type: file
+    path: content.json
+    fields:
+      - name: collections
+        label: Collections
+        type: object
+        list: true
+        fields:
+          - name: slug
+            label: Slug
+            type: string
+            description: "Used in the URL, e.g. 'portraits'. Must match one of the three nav items exactly: portraits, landscape, automotive."
+
+          - name: title
+            label: Collection Title
+            type: string
+
+          - name: intro
+            label: Collection Intro
+            type: text
+
+          - name: photos
+            label: Photos
+            type: object
+            list: true
+            fields:
+              - name: id
+                label: ID
+                type: string
+                description: "Short unique code, e.g. p1, l4, a2. Never reuse an ID."
+
+              - name: title
+                label: Title
+                type: string
+
+              - name: location
+                label: Location
+                type: string
+
+              - name: year
+                label: Year
+                type: number
+
+              - name: size
+                label: Layout Size
+                type: select
+                options:
+                  values:
+                    - full
+                    - large
+                    - medium
+                    - small
+                description: "Controls how large this photo appears in the collection layout."
+
+              - name: image
+                label: Photograph
+                type: image
+
+              - name: description
+                label: Artistic Description
+                type: text
+
+              - name: camera
+                label: Camera
+                type: string
+                required: false
+
+              - name: lens
+                label: Lens
+                type: string
+                required: false
+
+              - name: printLink
+                label: Print Link
+                type: string
+                description: "External link to the print store for this photograph."
