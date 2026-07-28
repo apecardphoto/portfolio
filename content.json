@@ -1,0 +1,205 @@
+{
+  "collections": [
+    {
+      "slug": "portraits",
+      "title": "Portraits",
+      "intro": "Studies of presence — the moment a face stops performing and simply is.",
+      "photos": [
+        {
+          "id": "p1",
+          "title": "Quiet Hour",
+          "location": "Lisbon, Portugal",
+          "year": 2026,
+          "size": "large",
+          "image": "images/quiet-hour.jpg",
+          "description": "A pause between takes, caught before the sitter remembered the camera was there. The light does the introducing.",
+          "camera": "Leica SL2",
+          "lens": "90mm f/2",
+          "printLink": "https://apecardphoto.darkroom.com/"
+        },
+        {
+          "id": "p2",
+          "title": "Window Seat",
+          "location": "Paris, France",
+          "year": 2025,
+          "size": "medium",
+          "image": "images/window-seat.jpg",
+          "description": "Portraiture as negotiation — half the frame given to the sitter, half to the room that shaped them.",
+          "camera": "Leica SL2",
+          "lens": "50mm f/1.4",
+          "printLink": "https://apecardphoto.darkroom.com/"
+        },
+        {
+          "id": "p3",
+          "title": "After the Rehearsal",
+          "location": "Milan, Italy",
+          "year": 2025,
+          "size": "small",
+          "image": "images/after-the-rehearsal.jpg",
+          "description": "Fatigue photographs honestly. This was the frame after the one everyone asked for.",
+          "camera": "Leica SL2",
+          "lens": "75mm f/2",
+          "printLink": "https://apecardphoto.darkroom.com/"
+        },
+        {
+          "id": "p4",
+          "title": "Correspondence",
+          "location": "Vienna, Austria",
+          "year": 2024,
+          "size": "full",
+          "image": "images/correspondence.jpg",
+          "description": "Two sitters, one letter between them, read only once. The second reading is for the print.",
+          "camera": "Leica SL2",
+          "lens": "35mm f/1.4",
+          "printLink": "https://apecardphoto.darkroom.com/"
+        },
+        {
+          "id": "p5",
+          "title": "Held Still",
+          "location": "Copenhagen, Denmark",
+          "year": 2024,
+          "size": "medium",
+          "image": "images/held-still.jpg",
+          "description": "A portrait made without direction — the stillness belongs entirely to the sitter.",
+          "camera": "Leica SL2",
+          "lens": "90mm f/2",
+          "printLink": "https://apecardphoto.darkroom.com/"
+        }
+      ]
+    },
+    {
+      "slug": "landscape",
+      "title": "Landscape & Travel",
+      "intro": "Places encountered rather than visited — weather, geology, and the hour of the day as co-authors.",
+      "photos": [
+        {
+          "id": "l1",
+          "title": "Morning Light",
+          "location": "Alentejo, Portugal",
+          "year": 2026,
+          "size": "full",
+          "image": "images/morning-light.jpg",
+          "description": "The fog burns off the plain in under ten minutes. This was minute seven.",
+          "camera": "Sony A7 IV",
+          "lens": "40mm",
+          "printLink": "https://apecardphoto.darkroom.com/"
+        },
+        {
+          "id": "l2",
+          "title": "North Face",
+          "location": "Dolomites, Italy",
+          "year": 2025,
+          "size": "large",
+          "image": "images/north-face.jpg",
+          "description": "Scale is the subject. The figure, barely visible at the ridgeline, is left for the viewer to find.",
+          "camera": "Sony A7 IV",
+          "lens": "24mm",
+          "printLink": "https://apecardphoto.darkroom.com/"
+        },
+        {
+          "id": "l3",
+          "title": "Low Tide",
+          "location": "Brittany, France",
+          "year": 2025,
+          "size": "medium",
+          "image": "images/low-tide.jpg",
+          "description": "The sand holds the shape of the water for exactly as long as the tide allows.",
+          "camera": "Sony A7 IV",
+          "lens": "35mm",
+          "printLink": "https://apecardphoto.darkroom.com/"
+        },
+        {
+          "id": "l4",
+          "title": "Salt Flats",
+          "location": "Atacama, Chile",
+          "year": 2024,
+          "size": "small",
+          "image": "images/salt-flats.jpg",
+          "description": "No horizon line to speak of — only a gradient from white to blue.",
+          "camera": "Sony A7 IV",
+          "lens": "55mm",
+          "printLink": "https://apecardphoto.darkroom.com/"
+        },
+        {
+          "id": "l5",
+          "title": "Harbor, Dusk",
+          "location": "Kotor, Montenegro",
+          "year": 2024,
+          "size": "full",
+          "image": "images/harbor-dusk.jpg",
+          "description": "The last working hour of the fishing boats, photographed from the far jetty.",
+          "camera": "Sony A7 IV",
+          "lens": "85mm",
+          "printLink": "https://apecardphoto.darkroom.com/"
+        },
+        {
+          "id": "l6",
+          "title": "Interior Weather",
+          "location": "Faroe Islands",
+          "year": 2023,
+          "size": "medium",
+          "image": "images/interior-weather.jpg",
+          "description": "Four seasons of weather moved through this valley in the span of one afternoon.",
+          "camera": "Sony A7 IV",
+          "lens": "24mm",
+          "printLink": "https://apecardphoto.darkroom.com/"
+        }
+      ]
+    },
+    {
+      "slug": "automotive",
+      "title": "Automotive",
+      "intro": "Machines regarded as sculpture — form, patina, and the discipline of restraint in every frame.",
+      "photos": [
+        {
+          "id": "a1",
+          "title": "Coachwork",
+          "location": "Modena, Italy",
+          "year": 2025,
+          "size": "large",
+          "image": "images/coachwork.jpg",
+          "description": "A body built by hand, photographed the same way — slowly, and without artificial light.",
+          "camera": "Hasselblad X2D",
+          "lens": "55mm",
+          "printLink": "https://apecardphoto.darkroom.com/"
+        },
+        {
+          "id": "a2",
+          "title": "Grid Position",
+          "location": "Goodwood, England",
+          "year": 2025,
+          "size": "full",
+          "image": "images/grid-position.jpg",
+          "description": "Fifteen minutes before the marshals opened the paddock. No crowd yet, no noise.",
+          "camera": "Hasselblad X2D",
+          "lens": "90mm",
+          "printLink": "https://apecardphoto.darkroom.com/"
+        },
+        {
+          "id": "a3",
+          "title": "Patina Study I",
+          "location": "Turin, Italy",
+          "year": 2024,
+          "size": "medium",
+          "image": "images/patina-study-i.jpg",
+          "description": "Forty years of use, documented the way a conservator would document a canvas.",
+          "camera": "Hasselblad X2D",
+          "lens": "120mm",
+          "printLink": "https://apecardphoto.darkroom.com/"
+        },
+        {
+          "id": "a4",
+          "title": "Workshop Light",
+          "location": "Stuttgart, Germany",
+          "year": 2023,
+          "size": "small",
+          "image": "images/workshop-light.jpg",
+          "description": "The single window in the restoration bay decides the whole photograph.",
+          "camera": "Hasselblad X2D",
+          "lens": "55mm",
+          "printLink": "https://apecardphoto.darkroom.com/"
+        }
+      ]
+    }
+  ]
+}

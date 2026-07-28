@@ -375,91 +375,10 @@
    Placeholder imagery only — final build wires this to real uploads.
 ===================================================================== */
 
-const img = (id, w, h) => `https://picsum.photos/id/${id}/${w}/${h}`;
-
-const COLLECTIONS = {
-  portraits: {
-    title: "Portraits",
-    slug: "portraits",
-    intro: "Studies of the human body and its emotions.",
-    photos: [
-      { id:"p1", title:"Through the Leaves", location:"Tivoli, Italia", year:2025, size:"large",
-        image:"images/APL03430.jpg",
-        description:"...",
-        camera:"Sony A7RIII", lens:"Tamron 28-75mm RXD f/2.8", printLink:"https://apecardphoto.darkroom.com/" },
-      { id:"p2", title:"Over her Shoulder", location:"Positano, Italia", year:2025, size:"medium",
-        image:"images/APL01977.jpg",
-        description:"...",
-        camera:"Sony A7RIII", lens:"Tamron 28-75mm RXD f/2.8", printLink:"https://apecardphoto.darkroom.com/" },
-      { id:"p3", title:"Through the Shadows", location:"Toulon, France", year:2025, size:"small",
-        image:"images/APL01293-2.jpg",
-        description:"...",
-        camera:"Sony A7RIII", lens:"Tamron 28-75mm RXD f/2.8", printLink:"https://apecardphoto.darkroom.com/" },
-      { id:"p4", title:"A Smile for the Ages", location:"Artignosk-sur-Verdon, France", year:2025, size:"full",
-        image:"images/APL01100.jpg",
-        description:"...",
-        camera:"Sony A7RIII", lens:"Tamron 28-75mm RXD f/2.8", printLink:"https://apecardphoto.darkroom.com/" },
-      { id:"p5", title:"Man of the Sea", location:"Saint-Barthélemy, France", year:2025, size:"medium",
-        image:"images/APL00861.jpg",
-        description:"A portrait of a modern-day pirate of the Caribbean",
-        camera:"Sony A7RIII", lens:"Tamron 28-75mm RXD f/2.8", printLink:"https://apecardphoto.darkroom.com/" },
-    ]
-  },
-  landscape: {
-    title: "Landscape & Travel",
-    slug: "landscape",
-    intro: "Places encountered rather than visited — weather, geology, and the hour of the day as co-authors.",
-    photos: [
-      { id:"l1", title:"Morning Light", location:"Alentejo, Portugal", year:2026, size:"full",
-        image:img(1043,1920,1080),
-        description:"The fog burns off the plain in under ten minutes. This was minute seven.",
-        camera:"Sony A7 IV", lens:"40mm", printLink:"https://apecardphoto.darkroom.com/" },
-      { id:"l2", title:"North Face", location:"Dolomites, Italy", year:2025, size:"large",
-        image:img(1018,1200,1500),
-        description:"Scale is the subject. The figure, barely visible at the ridgeline, is left for the viewer to find.",
-        camera:"Sony A7 IV", lens:"24mm", printLink:"https://apecardphoto.darkroom.com/" },
-      { id:"l3", title:"Low Tide", location:"Brittany, France", year:2025, size:"medium",
-        image:img(1035,1000,1250),
-        description:"The sand holds the shape of the water for exactly as long as the tide allows.",
-        camera:"Sony A7 IV", lens:"35mm", printLink:"https://apecardphoto.darkroom.com/" },
-      { id:"l4", title:"Salt Flats", location:"Atacama, Chile", year:2024, size:"small",
-        image:img(1044,900,1150),
-        description:"No horizon line to speak of — only a gradient from white to blue.",
-        camera:"Sony A7 IV", lens:"55mm", printLink:"https://apecardphoto.darkroom.com/" },
-      { id:"l5", title:"Harbor, Dusk", location:"Kotor, Montenegro", year:2024, size:"full",
-        image:img(1015,1920,1080),
-        description:"The last working hour of the fishing boats, photographed from the far jetty.",
-        camera:"Sony A7 IV", lens:"85mm", printLink:"https://apecardphoto.darkroom.com/" },
-      { id:"l6", title:"Interior Weather", location:"Faroe Islands", year:2023, size:"medium",
-        image:img(1053,1000,1250),
-        description:"Four seasons of weather moved through this valley in the span of one afternoon.",
-        camera:"Sony A7 IV", lens:"24mm", printLink:"https://apecardphoto.darkroom.com/" },
-    ]
-  },
-  automotive: {
-    title: "Automotive",
-    slug: "automotive",
-    intro: "Machines regarded as sculpture — form, patina, and the discipline of restraint in every frame.",
-    photos: [
-      { id:"a1", title:"Coachwork", location:"Modena, Italy", year:2025, size:"large",
-        image:img(1071,1200,1500),
-        description:"A body built by hand, photographed the same way — slowly, and without artificial light.",
-        camera:"Hasselblad X2D", lens:"55mm", printLink:"https://apecardphoto.darkroom.com/" },
-      { id:"a2", title:"Grid Position", location:"Goodwood, England", year:2025, size:"full",
-        image:img(1072,1920,1080),
-        description:"Fifteen minutes before the marshals opened the paddock. No crowd yet, no noise.",
-        camera:"Hasselblad X2D", lens:"90mm", printLink:"https://apecardphoto.darkroom.com/" },
-      { id:"a3", title:"Patina Study I", location:"Turin, Italy", year:2024, size:"medium",
-        image:img(1076,1000,1250),
-        description:"Forty years of use, documented the way a conservator would document a canvas.",
-        camera:"Hasselblad X2D", lens:"120mm", printLink:"https://apecardphoto.darkroom.com/" },
-      { id:"a4", title:"Workshop Light", location:"Stuttgart, Germany", year:2023, size:"small",
-        image:img(1081,900,1150),
-        description:"The single window in the restoration bay decides the whole photograph.",
-        camera:"Hasselblad X2D", lens:"55mm", printLink:"https://apecardphoto.darkroom.com/" },
-    ]
-  }
-};
+// COLLECTIONS is populated at runtime from content.json (see init() below).
+// This keeps every render function below completely unchanged — they just
+// read from COLLECTIONS once it's been filled in.
+let COLLECTIONS = {};
 
 // Manual homepage sequence — the CMS equivalent of a "featured" checkbox
 // plus an editor-controlled layout hint per item, so pacing stays
@@ -622,7 +541,7 @@ function renderAbout(){
   return `
     <div class="about-wrap">
       <div class="about-portrait reveal">
-        <img src="${img(1074, 800, 1000)}" alt="Alexander Pécard-Leese">
+        <img src="images/profile.jpg" alt="Alexander Pécard-Leese">
       </div>
       <h1 class="reveal">On light, and waiting for it.</h1>
       <div class="reveal">
@@ -796,7 +715,33 @@ function updateHeaderState(){
 window.addEventListener('scroll', updateHeaderState, { passive:true });
 updateHeaderState();
 
-render();
+/* =====================================================================
+   INIT — fetch content.json (managed via Pages CMS), populate COLLECTIONS,
+   then do the first render. Everything above this point is unchanged.
+===================================================================== */
+async function init(){
+  try{
+    const res = await fetch('content.json');
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    data.collections.forEach(c => { COLLECTIONS[c.slug] = c; });
+  } catch(err){
+    console.error('Could not load content.json:', err);
+    app.innerHTML = `
+      <div class="page-hero reveal is-visible">
+        <div class="eyebrow">Content unavailable</div>
+        <h1 class="serif">content.json could not be loaded.</h1>
+        <p>Make sure content.json is in the same folder as index.html and that
+        you're viewing this over http(s) — e.g. via GitHub Pages, or a local
+        server — rather than opening the file directly, since browsers block
+        fetch() on file:// URLs.</p>
+      </div>`;
+    return;
+  }
+  render();
+}
+
+init();
 </script>
 </body>
 </html>
