@@ -222,7 +222,7 @@
   #app.leaving{opacity:0;}
 
   /* ---------- Home hero spacer ---------- */
-  .home-top-space{height:min(34vh,260px);}
+  .home-top-space{height:min(16vh,130px);}
 
   /* ---------- Editorial grid ---------- */
   .sequence{
@@ -238,6 +238,7 @@
      prevents layout shift. object-fit:contain means the photo is never
      cropped: whatever doesn't fill the box just letterboxes, centered. */
   .tile-frame{
+    position:relative;
     overflow:hidden;
     background:transparent;
     width:100%;
@@ -269,9 +270,19 @@
   .tile-caption .t-title{font-family:'Fraunces', serif;font-style:italic;font-size:15px;color:var(--ink);letter-spacing:0;}
   .tile-caption .t-meta{white-space:nowrap;text-transform:uppercase;padding-top:2px;}
 
-  /* Desktop safety cap: no single photo should ever exceed one screen's height. */
+  /* Desktop safety cap: no single photo should ever exceed one screen's height.
+     The box height comes from the CMS-set aspect-ratio (capped at 82vh); the
+     image is then fit inside that box with object-fit:contain so it always
+     shows in its own native ratio, never cropped — it letterboxes instead. */
   @media (min-width:861px){
     .tile-frame{max-height:82vh;}
+    .tile-frame img{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:contain;
+    }
   }
 
   @media (max-width:860px){
@@ -373,7 +384,7 @@
 
   /* ---------- Prints page ---------- */
   .prints-wrap{max-width:var(--max);margin:0 auto;padding:190px var(--gutter) 40px;}
-  .prints-body{display:grid;grid-template-columns:1.1fr .9fr;gap:80px;padding-bottom:80px;}
+  .prints-body{display:grid;grid-template-columns:1.1fr .9fr;gap:80px;padding-bottom:80px;align-items:start;}
   .prints-body p{font-size:15.5px;line-height:1.9;color:var(--ink-muted);margin:0 0 22px;max-width:56ch;}
   .prints-note{
     border:1px solid var(--line);padding:32px;font-size:13px;line-height:1.8;color:var(--ink-muted);
@@ -760,6 +771,14 @@ function parseRoute(){
 }
 
 function render(){
+  // A clicked nav/submenu link keeps browser focus after the route changes
+  // (the header lives outside #app and never re-renders), which kept the
+  // desktop ".sub-panel" open via the :focus-within rule. Clearing focus on
+  // every route render closes it automatically.
+  if(document.activeElement && document.activeElement !== document.body){
+    document.activeElement.blur();
+  }
+
   const parts = parseRoute();
   let html = '';
 
