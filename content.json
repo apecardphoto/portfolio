@@ -202,7 +202,7 @@
           "year": 2025,
           "camera": "Sony A7R III",
           "lens": "Tamron 28-75mm RXD f/2.8",
-          "printAvailable": true,
+          "printAvailable": false,
           "printLink": "https://apecardphoto.darkroom.com/",
           "featured": true,
           "homepageOrder": 4
