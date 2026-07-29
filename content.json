@@ -181,13 +181,12 @@
       "photos": [
         {
           "id": "a1",
-          "image": "images/coachwork.jpg",
+          "image": "images/APL00627-Edit.jpg",
           "aspectRatio": "3 / 2",
-          "title": "Coachwork",
-          "location": "Modena, Italy",
+          "title": "Supra MK5",
+          "location": "Fishers, US",
           "year": 2025,
-          "description": "A body built by hand, photographed the same way — slowly, and without artificial light.",
-          "camera": "Hasselblad X2D",
+          "camera": "Sony A7R III",
           "lens": "55mm",
           "printAvailable": true,
           "printLink": "https://apecardphoto.darkroom.com/",
