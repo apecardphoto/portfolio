@@ -803,6 +803,7 @@ function render(){
   app.innerHTML = html;
   updateActiveNav(parts);
   attachScrollReveal();
+  attachCaptionAlignment();
   attachContactForm();
   window.scrollTo(0,0);
   document.querySelector('header.site-header').classList.remove('scrolled');
@@ -821,6 +822,81 @@ function updateActiveNav(parts){
   document.querySelectorAll('nav.main-nav a[data-route]').forEach(a => {
     const r = a.getAttribute('data-route');
     a.classList.toggle('active', r === route || (r !== '/' && route.startsWith(r)));
+  });
+}
+
+// ---------------------------------------------------------------------
+// Caption alignment fix
+// .tile-caption normally spans the full width of .tile-frame, which is
+// fine as long as the rendered photo actually fills that width. But
+// .tile-frame's box is reserved from the CMS "Shape" field (and, on
+// desktop, height-capped at 82vh) while the image itself is fit inside
+// with object-fit:contain — so whenever the box's proportions and the
+// photo's real proportions diverge (a height-capped box, an aspect-ratio
+// field that doesn't quite match the file, or an unmatched photo that
+// falls back to a full-width "solo" box), the visible photo pillarboxes
+// narrower than the box and the caption no longer lines up with it.
+// This measures the true rendered width of the photo inside its box
+// (the same math the browser uses for object-fit:contain) and locks the
+// caption to exactly that width, centered — so title/date always sit at
+// the actual left/right edges of the image itself, not the reserved box.
+// On mobile the image always fills the box (no cap, no contain), so no
+// adjustment is made there.
+function alignTileCaption(tile){
+  if(!tile) return;
+  const frame = tile.querySelector('.tile-frame');
+  const img = frame && frame.querySelector('img');
+  const caption = tile.querySelector('.tile-caption');
+  if(!frame || !img || !caption) return;
+
+  const desktopMode = window.matchMedia('(min-width:861px)').matches;
+  const frameW = frame.clientWidth;
+  const frameH = frame.clientHeight;
+
+  if(!desktopMode || !img.naturalWidth || !img.naturalHeight || !frameW || !frameH){
+    caption.style.width = '';
+    caption.style.marginLeft = '';
+    caption.style.marginRight = '';
+    return;
+  }
+
+  const scale = Math.min(frameW / img.naturalWidth, frameH / img.naturalHeight);
+  const displayedWidth = img.naturalWidth * scale;
+
+  if(displayedWidth >= frameW - 0.5){
+    caption.style.width = '';
+    caption.style.marginLeft = '';
+    caption.style.marginRight = '';
+  } else {
+    caption.style.width = displayedWidth + 'px';
+    caption.style.marginLeft = 'auto';
+    caption.style.marginRight = 'auto';
+  }
+}
+
+const captionResizeObserver = ('ResizeObserver' in window)
+  ? new ResizeObserver(entries => {
+      entries.forEach(entry => alignTileCaption(entry.target.closest('.tile')));
+    })
+  : null;
+
+function attachCaptionAlignment(){
+  document.querySelectorAll('.tile').forEach(tile => {
+    const frame = tile.querySelector('.tile-frame');
+    const img = frame && frame.querySelector('img');
+    if(!frame || !img) return;
+
+    if(captionResizeObserver){
+      captionResizeObserver.observe(frame);
+    } else {
+      window.addEventListener('resize', () => alignTileCaption(tile), { passive:true });
+    }
+
+    if(img.complete){
+      alignTileCaption(tile);
+    } else {
+      img.addEventListener('load', () => alignTileCaption(tile), { once:true });
+    }
   });
 }
 
