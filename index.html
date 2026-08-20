@@ -4,6 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Alexander Pécard-Leese — Photography</title>
+<meta name="description" content="Fine art photography by Alexander Pécard-Leese, exploring portraits, landscapes, travel, and automotive subjects through a cinematic and editorial lens.">
+<link rel="canonical" href="https://apecardphoto.com/">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://apecardphoto.com/">
+<meta property="og:title" content="Alexander Pécard-Leese — Photography">
+<meta property="og:description" content="Fine art photography by Alexander Pécard-Leese, exploring portraits, landscapes, travel, and automotive subjects through a cinematic and editorial lens.">
+<meta property="og:image" content="https://apecardphoto.com/images/social-preview.jpg">
+<meta property="og:image:alt" content="Alexander Pécard-Leese — Fine Art Photography">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Alexander Pécard-Leese — Photography">
+<meta name="twitter:description" content="Fine art photography by Alexander Pécard-Leese, exploring portraits, landscapes, travel, and automotive subjects through a cinematic and editorial lens.">
+<meta name="twitter:image" content="https://apecardphoto.com/images/social-preview.jpg">
+<meta name="twitter:image:alt" content="Alexander Pécard-Leese — Fine Art Photography">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -70,6 +85,8 @@
     color:var(--ink-muted);
     font-weight:500;
   }
+
+  .seo-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important;}
 
   /* ---------- Layout shells ---------- */
   .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter);}
@@ -447,7 +464,16 @@
   }
   .contact-success p{font-size:15px;line-height:1.85;color:var(--ink-muted);max-width:48ch;margin:0;}
 </style>
-  <link rel="icon" type="image/png" href="/favicon.png">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {"@type":"Person","@id":"https://apecardphoto.com/#person","name":"Alexander Pécard-Leese","url":"https://apecardphoto.com/","jobTitle":"Fine Art Photographer","sameAs":["https://www.instagram.com/apecardphoto"]},
+    {"@type":"WebSite","@id":"https://apecardphoto.com/#website","name":"Alexander Pécard-Leese — Photography","url":"https://apecardphoto.com/","description":"Fine art photography by Alexander Pécard-Leese, exploring portraits, landscapes, travel, and automotive subjects through a cinematic and editorial lens.","publisher":{"@id":"https://apecardphoto.com/#person"}}
+  ]
+}
+</script>
+<link rel="icon" type="image/png" href="/favicon.png">
 </head>
 <body>
 
@@ -480,7 +506,7 @@
   <div id="app"></div>
 </main>
 
-<footer class="site-footer">
+<footer class="site-footer" aria-label="Site footer">
   <div class="footer-inner">
     <span>&copy; <span id="year"></span> Alexander Pécard-Leese</span>
     <span class="social">
@@ -604,7 +630,7 @@ function renderHome(){
   });
   featured.sort((a, b) => (a.homepageOrder ?? 999) - (b.homepageOrder ?? 999));
 
-  return `<div class="home-top-space"></div><div class="sequence">${renderSequence(featured, { heroFirst:true })}</div>`;
+  return `<div class="home-top-space"></div><h1 class="seo-only">Alexander Pécard-Leese — Fine Art Photography</h1><section class="sequence" aria-label="Featured photography">${renderSequence(featured, { heroFirst:true })}</section>`;
 }
 
 function renderWorkIndex(){
@@ -622,7 +648,7 @@ function renderWorkIndex(){
       <h1 class="serif">Three bodies of work, ongoing.</h1>
       <p>Each collection is its own study — of people, of places, of machines built by hand. None are finished; all are added to as the work continues.</p>
     </div>
-    <div class="work-index-list wrap">${rows}</div>
+    <section class="work-index-list wrap" aria-label="Photography collections">${rows}</section>
     <div style="height:60px"></div>
   `;
 }
@@ -639,7 +665,7 @@ function renderCollection(slug){
       <h1 class="serif">${c.title}</h1>
       <p>${c.intro}</p>
     </div>
-    <div class="sequence">${renderSequence(photos, { heroFirst:true })}</div>
+    <section class="sequence" aria-label="${c.title} photography">${renderSequence(photos, { heroFirst:true })}</section>
     <div style="height:40px"></div>
   `;
 }
@@ -654,7 +680,7 @@ function renderArtwork(collectionKey, photoId){
   const showPrint = photo.printAvailable !== false && photo.printLink;
 
   return `
-    <div class="artwork">
+    <article class="artwork">
       <a class="back-link reveal" href="#/work/${collectionKey}" data-link>&larr; ${c.title}</a>
       <div class="artwork-image reveal" style="aspect-ratio:${photo.aspectRatio || '4 / 5'};">
         <img src="${photo.image}" alt="${altText}" loading="eager" fetchpriority="high" decoding="async" draggable="false">
@@ -677,30 +703,30 @@ function renderArtwork(collectionKey, photoId){
           ` : ``}
         </div>
       </div>
-    </div>
+    </article>
   `;
 }
 
 function renderAbout(){
   return `
-    <div class="about-wrap">
+    <section class="about-wrap" aria-labelledby="about-heading">
       <div class="about-portrait reveal" style="aspect-ratio:4/5;">
         <img src="${SITE.aboutPortrait}" alt="Alexander Pécard-Leese" loading="eager" fetchpriority="high" decoding="async" draggable="false">
       </div>
-      <h1 class="reveal">${SITE.aboutHeading}</h1>
+      <h1 class="reveal" id="about-heading">${SITE.aboutHeading}</h1>
       <div class="reveal">
         ${paragraphs(SITE.aboutText)}
       </div>
-    </div>
+    </section>
   `;
 }
 
 function renderPrints(){
   return `
-    <div class="prints-wrap">
+    <section class="prints-wrap" aria-labelledby="prints-heading">
       <div class="page-hero reveal" style="padding:0 0 50px;">
         <div class="eyebrow">Prints</div>
-        <h1 class="serif">${SITE.printsHeading}</h1>
+        <h1 class="serif" id="prints-heading">${SITE.printsHeading}</h1>
       </div>
       <div class="prints-body">
         <div class="reveal">
@@ -712,14 +738,14 @@ function renderPrints(){
           ${SITE.printsNote}
         </div>
       </div>
-    </div>
+    </section>
   `;
 }
 
 function renderContact(){
   return `
-    <div class="contact-wrap">
-      <h1 class="reveal">${SITE.contactHeading}</h1>
+    <section class="contact-wrap" aria-labelledby="contact-heading">
+      <h1 class="reveal" id="contact-heading">${SITE.contactHeading}</h1>
       <p class="reveal">${SITE.contactIntro}</p>
 
       <form class="reveal" id="contactForm" action="https://formspree.io/f/xeeyneoy" method="POST">
@@ -766,7 +792,7 @@ function renderContact(){
           <a href="mailto:apecardphoto@gmail.com">apecardphoto@gmail.com</a>
         </div>
       </div>
-    </div>
+    </section>
   `;
 }
 
@@ -785,44 +811,52 @@ function parseRoute(){
   return parts;
 }
 
-function render(){
-  // A clicked nav/submenu link keeps browser focus after the route changes
-  // (the header lives outside #app and never re-renders), which kept the
-  // desktop ".sub-panel" open via the :focus-within rule. Clearing focus on
-  // every route render closes it automatically.
-  if(document.activeElement && document.activeElement !== document.body){
-    document.activeElement.blur();
+  function render() {
+    // A clicked nav/submenu link keeps browser focus after the route changes
+    if (document.activeElement && document.activeElement !== document.body) {
+      document.activeElement.blur();
+    }
+
+    const parts = parseRoute();
+    let html = '';
+
+    if (parts.length === 0) {
+      html = renderHome();
+      document.title = 'Alexander Pécard-Leese — Photography';
+    } else if (parts[0] === 'work' && parts.length === 1) {
+      html = renderWorkIndex();
+      document.title = 'Work — Alexander Pécard-Leese';
+    } else if (parts[0] === 'work' && parts.length === 2) {
+      html = renderCollection(parts[1]);
+      const c = COLLECTIONS[parts[1]];
+      document.title = (c ? c.title : 'Work') + ' — Alexander Pécard-Leese';
+    } else if (parts[0] === 'work' && parts.length === 3) {
+      html = renderArtwork(parts[1], parts[2]);
+      const c = COLLECTIONS[parts[1]];
+      const photo = c && c.photos.find(p => p.id === parts[2]);
+      document.title = (photo && photo.title ? photo.title : 'Artwork') + ' — Alexander Pécard-Leese';
+    } else if (parts[0] === 'prints') {
+      html = renderPrints();
+      document.title = 'Prints — Alexander Pécard-Leese';
+    } else if (parts[0] === 'about') {
+      html = renderAbout();
+      document.title = 'About — Alexander Pécard-Leese';
+    } else if (parts[0] === 'contact') {
+      html = renderContact();
+      document.title = 'Contact — Alexander Pécard-Leese';
+    } else {
+      html = renderNotFound();
+      document.title = 'Page Not Found — Alexander Pécard-Leese';
+    }
+
+    app.innerHTML = html;
+    updateActiveNav(parts);
+    attachScrollReveal();
+    attachCaptionAlignment();
+    attachContactForm();
+    window.scrollTo(0, 0);
+    document.querySelector('header.site-header').classList.remove('scrolled');
   }
-
-  const parts = parseRoute();
-  let html = '';
-
-  if(parts.length === 0){
-    html = renderHome();
-  } else if(parts[0] === 'work' && parts.length === 1){
-    html = renderWorkIndex();
-  } else if(parts[0] === 'work' && parts.length === 2){
-    html = renderCollection(parts[1]);
-  } else if(parts[0] === 'work' && parts.length === 3){
-    html = renderArtwork(parts[1], parts[2]);
-  } else if(parts[0] === 'prints'){
-    html = renderPrints();
-  } else if(parts[0] === 'about'){
-    html = renderAbout();
-  } else if(parts[0] === 'contact'){
-    html = renderContact();
-  } else {
-    html = renderNotFound();
-  }
-
-  app.innerHTML = html;
-  updateActiveNav(parts);
-  attachScrollReveal();
-  attachCaptionAlignment();
-  attachContactForm();
-  window.scrollTo(0,0);
-  document.querySelector('header.site-header').classList.remove('scrolled');
-}
 
 function navigateWithTransition(){
   app.classList.add('leaving');
