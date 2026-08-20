@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Direct search engines to your XML sitemap
+Sitemap: https://apecardphoto.com/sitemap.xml
